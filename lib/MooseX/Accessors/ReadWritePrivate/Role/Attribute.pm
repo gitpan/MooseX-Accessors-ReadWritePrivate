@@ -6,7 +6,7 @@ use strict;
 use warnings;
 
 
-use version; our $VERSION = qv('v1.0.0');
+use version; our $VERSION = qv('v1.0.1');
 
 
 use Moose::Role;
@@ -81,7 +81,7 @@ MooseX::Accessors::ReadWritePrivate::Role::Attribute - Names (non Bool) accessor
 =head1 VERSION
 
 This document describes MooseX::Accessors::ReadWritePrivate::Role::Attribute
-version 1.0.0.
+version 1.0.1.
 
 
 =head1 DESCRIPTION

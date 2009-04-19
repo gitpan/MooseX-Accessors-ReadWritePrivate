@@ -1,6 +1,6 @@
 ---
 name: MooseX-Accessors-ReadWritePrivate
-version: v1.0.0
+version: v1.0.1
 author:
   - 'Elliot Shank <perl@galumph.com>'
 abstract: Name your accessors get_foo() and set_foo() or _set_foo().
@@ -8,26 +8,24 @@ license: perl
 resources:
   license: http://dev.perl.org/licenses/
 requires:
-  Carp: 0
-  Exporter: 5.58
-  IO::Handle: 0
-  Readonly: 1.03
-  autodie: 0
+  Moose: 0.56
+  Moose::Exporter: 0
+  Moose::Role: 0
+  Moose::Util::MetaRole: 0
   strict: 0
   utf8: 0
-  version: 0.74
+  version: 0
   warnings: 0
 build_requires:
-  Test::Exception: 0
   Test::More: 0.72
 dynamic_config: 0
 provides:
   MooseX::Accessors::ReadWritePrivate:
     file: lib/MooseX/Accessors/ReadWritePrivate.pm
-    version: v1.0.0
+    version: v1.0.1
   MooseX::Accessors::ReadWritePrivate::Role::Attribute:
     file: lib/MooseX/Accessors/ReadWritePrivate/Role/Attribute.pm
-    version: v1.0.0
+    version: v1.0.1
 generated_by: Module::Build version 0.32
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

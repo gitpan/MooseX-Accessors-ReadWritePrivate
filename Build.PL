@@ -52,20 +52,18 @@ my $builder = $class->new(
     sign                => 0,
 
     requires            => {
-        'autodie'           => 0,
-        'Carp'              => 0,
-        'Exporter'          => 5.58,
-        'IO::Handle'        => 0,
-        'Readonly'          => 1.03,
-        'strict'            => 0,
-        'utf8'              => 0,
-        'version'           => 0.74,
-        'warnings'          => 0,
+        'Moose'                     => 0.56,
+        'Moose::Exporter'           => 0,
+        'Moose::Role'               => 0,
+        'Moose::Util::MetaRole'     => 0,
+        'strict'                    => 0,
+        'utf8'                      => 0,
+        'version'                   => 0,
+        'warnings'                  => 0,
     },
 
     build_requires      => {
-        'Test::Exception'   => 0,
-        'Test::More'        => 0.72,
+        'Test::More'    => 0.72,
     },
 
     recommends          => {
