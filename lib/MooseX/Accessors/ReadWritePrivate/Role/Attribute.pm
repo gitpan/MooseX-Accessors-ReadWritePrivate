@@ -6,7 +6,7 @@ use strict;
 use warnings;
 
 
-use version; our $VERSION = qv('v1.0.1');
+use version; our $VERSION = qv('v1.1.0');
 
 
 use Moose::Role;
@@ -25,7 +25,7 @@ before _process_options => sub {
             if ( not exists $options->{reader} ) {
                 my $type = $options->{isa};
                 my $prefix;
-                if ($type and $type eq 'Bool') {
+                if ( $type and ($type eq 'Bool' or $type eq 'Maybe[Bool]') ) {
                     $prefix = q<>;
                 } else {
                     $prefix = 'get_';
@@ -81,7 +81,7 @@ MooseX::Accessors::ReadWritePrivate::Role::Attribute - Names (non Bool) accessor
 =head1 VERSION
 
 This document describes MooseX::Accessors::ReadWritePrivate::Role::Attribute
-version 1.0.1.
+version 1.1.0.
 
 
 =head1 DESCRIPTION

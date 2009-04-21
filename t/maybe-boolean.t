@@ -19,17 +19,17 @@ use Test::More tests => 36;
     use MooseX::Accessors::ReadWritePrivate;
     use Moose;
 
-    has 'public_rw'                  => (is => 'rw',  isa => 'Bool');
-    has '_private_rw'                => (is => 'rw',  isa => 'Bool');
-    has '__distribution_private_rw'  => (is => 'rw',  isa => 'Bool');
+    has 'public_rw'                  => (is => 'rw',  isa => 'Maybe[Bool]');
+    has '_private_rw'                => (is => 'rw',  isa => 'Maybe[Bool]');
+    has '__distribution_private_rw'  => (is => 'rw',  isa => 'Maybe[Bool]');
 
-    has 'public_ro'                  => (is => 'ro',  isa => 'Bool');
-    has '_private_ro'                => (is => 'ro',  isa => 'Bool');
-    has '__distribution_private_ro'  => (is => 'ro',  isa => 'Bool');
+    has 'public_ro'                  => (is => 'ro',  isa => 'Maybe[Bool]');
+    has '_private_ro'                => (is => 'ro',  isa => 'Maybe[Bool]');
+    has '__distribution_private_ro'  => (is => 'ro',  isa => 'Maybe[Bool]');
 
-    has 'public_rwp'                 => (is => 'rwp', isa => 'Bool');
-    has '_private_rwp'               => (is => 'rwp', isa => 'Bool');
-    has '__distribution_private_rwp' => (is => 'rwp', isa => 'Bool');
+    has 'public_rwp'                 => (is => 'rwp', isa => 'Maybe[Bool]');
+    has '_private_rwp'               => (is => 'rwp', isa => 'Maybe[Bool]');
+    has '__distribution_private_rwp' => (is => 'rwp', isa => 'Maybe[Bool]');
 } # end Before::Moose
 
 {
@@ -39,17 +39,17 @@ use Test::More tests => 36;
     use Moose;
     use MooseX::Accessors::ReadWritePrivate;
 
-    has 'public_rw'                  => (is => 'rw',  isa => 'Bool');
-    has '_private_rw'                => (is => 'rw',  isa => 'Bool');
-    has '__distribution_private_rw'  => (is => 'rw',  isa => 'Bool');
+    has 'public_rw'                  => (is => 'rw',  isa => 'Maybe[Bool]');
+    has '_private_rw'                => (is => 'rw',  isa => 'Maybe[Bool]');
+    has '__distribution_private_rw'  => (is => 'rw',  isa => 'Maybe[Bool]');
 
-    has 'public_ro'                  => (is => 'ro',  isa => 'Bool');
-    has '_private_ro'                => (is => 'ro',  isa => 'Bool');
-    has '__distribution_private_ro'  => (is => 'ro',  isa => 'Bool');
+    has 'public_ro'                  => (is => 'ro',  isa => 'Maybe[Bool]');
+    has '_private_ro'                => (is => 'ro',  isa => 'Maybe[Bool]');
+    has '__distribution_private_ro'  => (is => 'ro',  isa => 'Maybe[Bool]');
 
-    has 'public_rwp'                 => (is => 'rwp', isa => 'Bool');
-    has '_private_rwp'               => (is => 'rwp', isa => 'Bool');
-    has '__distribution_private_rwp' => (is => 'rwp', isa => 'Bool');
+    has 'public_rwp'                 => (is => 'rwp', isa => 'Maybe[Bool]');
+    has '_private_rwp'               => (is => 'rwp', isa => 'Maybe[Bool]');
+    has '__distribution_private_rwp' => (is => 'rwp', isa => 'Maybe[Bool]');
 } # end After::Moose
 
 {
@@ -58,17 +58,17 @@ use Test::More tests => 36;
     use Moose;
     use MooseX::Accessors::ReadWritePrivate;
 
-    has 'public_rw'                  => (is => 'rw',  isa => 'Bool', reader => 'public_rw'                 );
-    has '_private_rw'                => (is => 'rw',  isa => 'Bool', reader => '_private_rw'               );
-    has '__distribution_private_rw'  => (is => 'rw',  isa => 'Bool', reader => '__distribution_private_rw' );
+    has 'public_rw'                  => (is => 'rw',  isa => 'Maybe[Bool[', reader => 'public_rw'                 );
+    has '_private_rw'                => (is => 'rw',  isa => 'Maybe[Bool[', reader => '_private_rw'               );
+    has '__distribution_private_rw'  => (is => 'rw',  isa => 'Maybe[Bool[', reader => '__distribution_private_rw' );
 
-    has 'public_ro'                  => (is => 'ro',  isa => 'Bool', reader => 'public_ro'                 );
-    has '_private_ro'                => (is => 'ro',  isa => 'Bool', reader => '_private_ro'               );
-    has '__distribution_private_ro'  => (is => 'ro',  isa => 'Bool', reader => '__distribution_private_ro' );
+    has 'public_ro'                  => (is => 'ro',  isa => 'Maybe[Bool[', reader => 'public_ro'                 );
+    has '_private_ro'                => (is => 'ro',  isa => 'Maybe[Bool[', reader => '_private_ro'               );
+    has '__distribution_private_ro'  => (is => 'ro',  isa => 'Maybe[Bool[', reader => '__distribution_private_ro' );
 
-    has 'public_rwp'                 => (is => 'rwp', isa => 'Bool', reader => 'public_rwp'                );
-    has '_private_rwp'               => (is => 'rwp', isa => 'Bool', reader => '_private_rwp'              );
-    has '__distribution_private_rwp' => (is => 'rwp', isa => 'Bool', reader => '__distribution_private_rwp');
+    has 'public_rwp'                 => (is => 'rwp', isa => 'Maybe[Bool[', reader => 'public_rwp'                );
+    has '_private_rwp'               => (is => 'rwp', isa => 'Maybe[Bool[', reader => '_private_rwp'              );
+    has '__distribution_private_rwp' => (is => 'rwp', isa => 'Maybe[Bool[', reader => '__distribution_private_rwp');
 } # end Selector::Overrides
 
 {

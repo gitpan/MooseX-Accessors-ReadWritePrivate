@@ -6,6 +6,7 @@ MANIFEST			This list of files
 README
 t/basic.t
 t/boolean.t
+t/maybe-boolean.t
 xt/author/consistent_version_numbers.t
 xt/author/distribution.t
 xt/author/kwalitee.t

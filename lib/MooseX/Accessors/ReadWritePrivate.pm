@@ -5,7 +5,7 @@ use utf8;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv('v1.0.1');
+use version; our $VERSION = qv('v1.1.0');
 
 use Moose 0.56 qw< >;
 use Moose::Exporter;
@@ -113,7 +113,7 @@ MooseX::Accessors::ReadWritePrivate - Name your accessors get_foo() and set_foo(
 
 =head1 VERSION
 
-This document describes MooseX::Accessors::ReadWritePrivate version 1.0.1.
+This document describes MooseX::Accessors::ReadWritePrivate version 1.1.0.
 
 
 =head1 DESCRIPTION
@@ -123,8 +123,8 @@ default naming policy for the loading class so that accessors are separated
 into a selector and a mutator.
 
 The selector will be named the same as the attribute with "get_" prefixed,
-unless the attributes is a C<Bool>, in which case the selector will have the
-same name as the attribute.
+unless the attributes is a C<Bool> or a C<Maybe[Bool]>, in which case the
+selector will have the same name as the attribute.
 
 If the value for the "is" option is not "ro", the mutator will be named the
 same as the attribute with "set_" prefixed, unless the value of the "is"
