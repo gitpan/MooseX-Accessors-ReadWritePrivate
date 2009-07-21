@@ -2,7 +2,9 @@ Build.PL
 Changes
 lib/MooseX/Accessors/ReadWritePrivate.pm
 lib/MooseX/Accessors/ReadWritePrivate/Role/Attribute.pm
+LICENSE
 MANIFEST			This list of files
+META.yml
 README
 t/basic.t
 t/boolean.t
@@ -17,5 +19,3 @@ xt/author/perlcriticrc-tests
 xt/author/pod_coverage.t
 xt/author/pod_syntax.t
 xt/author/README
-LICENSE
-META.yml

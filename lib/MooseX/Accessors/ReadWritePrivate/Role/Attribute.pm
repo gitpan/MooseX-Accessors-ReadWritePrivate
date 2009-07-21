@@ -1,15 +1,19 @@
 package MooseX::Accessors::ReadWritePrivate::Role::Attribute;
 
-use utf8;
 use 5.008;
+use utf8;
+
 use strict;
 use warnings;
 
 
-use version; our $VERSION = qv('v1.1.0');
+use version; our $VERSION = qv('v1.2.0');
 
 
 use Moose::Role;
+
+
+my %SIGNIFICANT_IS_VALUES = map { $_ => 1 } qw< ro rw rwp >;
 
 
 before _process_options => sub {
@@ -17,6 +21,7 @@ before _process_options => sub {
 
     if (
             exists $options->{is}
+        and exists $SIGNIFICANT_IS_VALUES{ $options->{is} }
         and not ( exists $options->{reader} and exists $options->{writer} )
     ) {
         if ($name =~ m< \A ( _* ) ( [^_] .* )? \z >xms) {
@@ -81,7 +86,7 @@ MooseX::Accessors::ReadWritePrivate::Role::Attribute - Names (non Bool) accessor
 =head1 VERSION
 
 This document describes MooseX::Accessors::ReadWritePrivate::Role::Attribute
-version 1.1.0.
+version 1.2.0.
 
 
 =head1 DESCRIPTION

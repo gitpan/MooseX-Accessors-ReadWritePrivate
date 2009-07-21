@@ -5,7 +5,7 @@ use utf8;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv('v1.1.0');
+use version; our $VERSION = qv('v1.2.0');
 
 use Moose 0.56 qw< >;
 use Moose::Exporter;
@@ -113,7 +113,7 @@ MooseX::Accessors::ReadWritePrivate - Name your accessors get_foo() and set_foo(
 
 =head1 VERSION
 
-This document describes MooseX::Accessors::ReadWritePrivate version 1.1.0.
+This document describes MooseX::Accessors::ReadWritePrivate version 1.2.0.
 
 
 =head1 DESCRIPTION
