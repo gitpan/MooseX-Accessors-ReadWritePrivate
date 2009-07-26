@@ -44,7 +44,7 @@ my $builder = $class->new(
     sign                => 0,
 
     requires            => {
-        'Moose'                     => 0.56,
+        'Moose'                     => 0.84,
         'Moose::Exporter'           => 0,
         'Moose::Role'               => 0,
         'Moose::Util::MetaRole'     => 0,
