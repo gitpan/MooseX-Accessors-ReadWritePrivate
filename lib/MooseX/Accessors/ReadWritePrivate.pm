@@ -5,31 +5,22 @@ use utf8;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv('v1.2.1');
+use version; our $VERSION = qv('v1.3.0');
 
-use Moose 0.56 qw< >;
+use Moose 0.94 qw< >;
 use Moose::Exporter;
 use Moose::Util::MetaRole;
 
 use MooseX::Accessors::ReadWritePrivate::Role::Attribute;
 
 
-Moose::Exporter->setup_import_methods();
-
-
-sub init_meta {
-    my (undef, %options) = @_;
-
-    Moose->init_meta(%options);
-
-    return
-        Moose::Util::MetaRole::apply_metaclass_roles(
-            for_class                 => $options{for_class},
-            attribute_metaclass_roles => [
-                qw< MooseX::Accessors::ReadWritePrivate::Role::Attribute >
-            ],
-        );
-} # end init_meta()
+Moose::Exporter->setup_import_methods(
+    class_metaroles => {
+        attribute => [
+            qw< MooseX::Accessors::ReadWritePrivate::Role::Attribute >
+        ],
+    },
+);
 
 
 1;
@@ -70,16 +61,20 @@ MooseX::Accessors::ReadWritePrivate - Name your accessors get_foo() and set_foo(
         is => 'ro',  # Will create get_bar().
         ...
     };
+    has bar => {
+        is => 'rop',  # Will create _get_bar().
+        ...
+    };
     has baz => {
-        is => 'rwp', # Will create get_baz() and _set_baz().
+        is => 'rpwp', # Will create _get_baz() and _set_baz().
         ...
     };
     has _baz => {
-        is => 'rwp', # Will create _get_baz() and _set_baz().
+        is => 'rpwp', # Will create _get_baz() and _set_baz().
         ...
     };
     has __baz => {
-        is => 'rwp', # Will create __get_baz() and _set_baz().
+        is => 'rpwp', # Will create _get_baz() and _set_baz().
         ...
     };
 
@@ -113,7 +108,7 @@ MooseX::Accessors::ReadWritePrivate - Name your accessors get_foo() and set_foo(
 
 =head1 VERSION
 
-This document describes MooseX::Accessors::ReadWritePrivate version 1.2.0.
+This document describes MooseX::Accessors::ReadWritePrivate version 1.3.0.
 
 
 =head1 DESCRIPTION
@@ -122,18 +117,50 @@ This module does not provide any methods.  Simply loading it changes the
 default naming policy for the loading class so that accessors are separated
 into a selector and a mutator.
 
-The selector will be named the same as the attribute with "get_" prefixed,
-unless the attributes is a C<Bool> or a C<Maybe[Bool]>, in which case the
-selector will have the same name as the attribute.
+Assuming that there is no "p" or "wo" in the C<is> declaration, the selector
+will be named the same as the attribute with "get_" prefixed, unless the
+attributes is a C<Bool> or a C<Maybe[Bool]>, in which case the selector will
+have the same name as the attribute.
 
-If the value for the "is" option is not "ro", the mutator will be named the
-same as the attribute with "set_" prefixed, unless the value of the "is"
-option is "rwp" (read, write private), in which case a prefix of "_set_" will
-be used.
+If there is no "ro", in the C<is> declaration, a mutator will be crated.
+Assuming that there is no "p" in the declaration, the mutator will be named
+the same as the attribute with "set_" prefixed, modulo leading underscores.
+
+Appending a "p" in the C<is> declaration after a given component indicates
+that you want the accessor "private" (as much as anything in Perl is private),
+by having a single leading underscore in the name, regardless of the number of
+leading underscores in the attribute name.  For example, using "rpw" will make
+the selector private and the mutator private and using "rop" will make the
+selector private and not create a mutator.
 
 If the attribute has any leading underscores, those will moved to the front of
-the accessor names, unless the value of the "is" option is "rwp", in which
+the accessor names, unless the accessor is supposed to be private, in which
 case the mutator will have a single underscore at the front.
+
+To be absolutely plain, here's the complete list of acceptable values for C<is>:
+
+=over
+
+=item rw
+
+=item ro
+
+=item wo
+
+=item rpw
+
+=item rwp
+
+=item rpwp
+
+=item rop
+
+=item wop
+
+=item bare
+
+=back
+
 
 Unlike other accessor naming schemes for L<Moose>, specifying a value for the
 "reader" only or the "writer" only does not disable the behavior of this
@@ -170,7 +197,7 @@ Elliot Shank C<< <perl@galumph.com> >>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright ©2009, Elliot Shank C<< <perl@galumph.com> >>.
+Copyright ©2009-2010, Elliot Shank C<< <perl@galumph.com> >>.
 
 Based upon L<MooseX::FollowPBP>, copyright ©2008 Dave Rolsky.
 

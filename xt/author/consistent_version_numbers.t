@@ -8,12 +8,12 @@ use utf8;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv('v1.2.1');
+use version; our $VERSION = qv('v1.3.0');
 
 use File::Find;
 use File::Slurp;
 
-use Test::More qw(no_plan); ## no critic (Bangs::ProhibitNoPlan)
+use Test::More qw(no_plan);
 
 
 my $last_version = undef;

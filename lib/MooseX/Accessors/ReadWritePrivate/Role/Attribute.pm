@@ -7,27 +7,60 @@ use strict;
 use warnings;
 
 
-use version; our $VERSION = qv('v1.2.1');
+use version; our $VERSION = qv('v1.3.0');
 
 
 use Moose::Role;
 
 
-my %SIGNIFICANT_IS_VALUES = map { $_ => 1 } qw< ro rw rwp >;
+my $TRUE  = 1;
+my $FALSE = 0;
 
 
 before _process_options => sub {
     my ($class, $name, $options) = @_;
 
+    my $is = $options->{is};
     if (
-            exists $options->{is}
-        and exists $SIGNIFICANT_IS_VALUES{ $options->{is} }
+            $is
         and not ( exists $options->{reader} and exists $options->{writer} )
+        and $is =~ m<
+            \A
+            (?:
+                    r (p)? w (p)?
+                |   ( [rw] ) o (p)?
+            )
+            \z
+        >xms
     ) {
-        if ($name =~ m< \A ( _* ) ( [^_] .* )? \z >xms) {
+        my ($read_private, $write_private, $read_or_write_only, $only_private) =
+            ($1, $2, $3, $4);
+
+        if (
+            $name =~ m<
+                \A
+                ( _* )
+                ( [^_] .* )?
+                \z
+            >xms
+        ) {
             my ($scope, $base) = ($1, $2);
 
-            if ( not exists $options->{reader} ) {
+            my $generate_selector = not exists $options->{reader};
+            my $generate_mutator = not exists $options->{writer};
+            if ($read_or_write_only) {
+                if ($read_or_write_only eq 'r') {
+                    $read_private = $only_private;
+                    $generate_mutator = $FALSE;
+                } else {
+                    $write_private = $only_private;
+                    $generate_selector = $FALSE;
+                } # end if
+            } # end if
+
+            if ($generate_selector) {
+                my $read_scope = $read_private ? '_' : $scope;
+
                 my $type = $options->{isa};
                 my $prefix;
                 if ( $type and ($type eq 'Bool' or $type eq 'Maybe[Bool]') ) {
@@ -36,15 +69,14 @@ before _process_options => sub {
                     $prefix = 'get_';
                 } # end if
 
-                $options->{reader} = "$scope$prefix$base";
+                $options->{reader} = "$read_scope$prefix$base";
             } # end if
 
-            if ( not exists $options->{writer} ) {
-                my $is = $options->{is};
-                if ($is eq 'rw') {
-                    $options->{writer} = "${scope}set_$base";
-                } elsif ($is eq 'rwp') {
+            if ($generate_mutator) {
+                if ($write_private) {
                     $options->{writer} = "_set_$base";
+                } else {
+                    $options->{writer} = "${scope}set_$base";
                 } # end if
             } # end if
 
@@ -75,18 +107,13 @@ MooseX::Accessors::ReadWritePrivate::Role::Attribute - Names (non Bool) accessor
 
 =head1 SYNOPSIS
 
-    Moose::Util::MetaRole::apply_metaclass_roles
-        (
-            for_class                 => $p{for_class},
-            attribute_metaclass_roles =>
-                ['MooseX::Accessors::ReadWritePrivate::Role::Attribute'],
-        );
+None.  This is part of the implementation of L<MooseX::Accessors::ReadWritePrivate>.
 
 
 =head1 VERSION
 
 This document describes MooseX::Accessors::ReadWritePrivate::Role::Attribute
-version 1.2.0.
+version 1.3.0.
 
 
 =head1 DESCRIPTION
@@ -123,7 +150,7 @@ Elliot Shank C<< <perl@galumph.com> >>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright ©2009, Elliot Shank C<< <perl@galumph.com> >>.
+Copyright ©2009-2010, Elliot Shank C<< <perl@galumph.com> >>.
 
 Based upon L<MooseX::FollowPBP>, copyright ©2008 Dave Rolsky.
 

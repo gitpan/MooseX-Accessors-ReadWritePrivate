@@ -6,34 +6,15 @@ use 5.008004;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv('v1.2.1');
+use version; our $VERSION = qv('v1.3.0');
 
 
-use Test::More tests => 36;
+use Test::More tests => 18;
 
 
 ## no critic (Modules::ProhibitMultiplePackages)
 {
-    package Before::Moose;
-
-    use MooseX::Accessors::ReadWritePrivate;
-    use Moose;
-
-    has 'public_rw'                  => (is => 'rw',  isa => 'Maybe[Bool]');
-    has '_private_rw'                => (is => 'rw',  isa => 'Maybe[Bool]');
-    has '__distribution_private_rw'  => (is => 'rw',  isa => 'Maybe[Bool]');
-
-    has 'public_ro'                  => (is => 'ro',  isa => 'Maybe[Bool]');
-    has '_private_ro'                => (is => 'ro',  isa => 'Maybe[Bool]');
-    has '__distribution_private_ro'  => (is => 'ro',  isa => 'Maybe[Bool]');
-
-    has 'public_rwp'                 => (is => 'rwp', isa => 'Maybe[Bool]');
-    has '_private_rwp'               => (is => 'rwp', isa => 'Maybe[Bool]');
-    has '__distribution_private_rwp' => (is => 'rwp', isa => 'Maybe[Bool]');
-} # end Before::Moose
-
-{
-    package After::Moose;
+    package Regular;
 
     # Make sure load order doesn't matter.
     use Moose;
@@ -50,48 +31,10 @@ use Test::More tests => 36;
     has 'public_rwp'                 => (is => 'rwp', isa => 'Maybe[Bool]');
     has '_private_rwp'               => (is => 'rwp', isa => 'Maybe[Bool]');
     has '__distribution_private_rwp' => (is => 'rwp', isa => 'Maybe[Bool]');
-} # end After::Moose
-
-{
-    package Selector::Overrides;
-
-    use Moose;
-    use MooseX::Accessors::ReadWritePrivate;
-
-    has 'public_rw'                  => (is => 'rw',  isa => 'Maybe[Bool[', reader => 'public_rw'                 );
-    has '_private_rw'                => (is => 'rw',  isa => 'Maybe[Bool[', reader => '_private_rw'               );
-    has '__distribution_private_rw'  => (is => 'rw',  isa => 'Maybe[Bool[', reader => '__distribution_private_rw' );
-
-    has 'public_ro'                  => (is => 'ro',  isa => 'Maybe[Bool[', reader => 'public_ro'                 );
-    has '_private_ro'                => (is => 'ro',  isa => 'Maybe[Bool[', reader => '_private_ro'               );
-    has '__distribution_private_ro'  => (is => 'ro',  isa => 'Maybe[Bool[', reader => '__distribution_private_ro' );
-
-    has 'public_rwp'                 => (is => 'rwp', isa => 'Maybe[Bool[', reader => 'public_rwp'                );
-    has '_private_rwp'               => (is => 'rwp', isa => 'Maybe[Bool[', reader => '_private_rwp'              );
-    has '__distribution_private_rwp' => (is => 'rwp', isa => 'Maybe[Bool[', reader => '__distribution_private_rwp');
-} # end Selector::Overrides
-
-{
-    package Mutator::Overrides;
-
-    use Moose;
-    use MooseX::Accessors::ReadWritePrivate;
-
-    has 'public_rw'                  => (is => 'rw',  isa => 'Bool', reader => 'public_rw'                 );
-    has '_private_rw'                => (is => 'rw',  isa => 'Bool', reader => '_private_rw'               );
-    has '__distribution_private_rw'  => (is => 'rw',  isa => 'Bool', reader => '__distribution_private_rw' );
-
-    has 'public_ro'                  => (is => 'ro',  isa => 'Bool', reader => 'public_ro'                 );
-    has '_private_ro'                => (is => 'ro',  isa => 'Bool', reader => '_private_ro'               );
-    has '__distribution_private_ro'  => (is => 'ro',  isa => 'Bool', reader => '__distribution_private_ro' );
-
-    has 'public_rwp'                 => (is => 'rwp', isa => 'Bool', reader => 'public_rwp'                );
-    has '_private_rwp'               => (is => 'rwp', isa => 'Bool', reader => '_private_rwp'              );
-    has '__distribution_private_rwp' => (is => 'rwp', isa => 'Bool', reader => '__distribution_private_rwp');
-} # end Mutator::Overrides
+} # end Regular
 
 
-foreach my $package ( qw< Before::Moose After::Moose > ) {
+foreach my $package ( qw< Regular > ) {
     ok($package->can('public_rw'),                     "$package->public_rw() exists."                    );
     ok($package->can('set_public_rw'),                 "$package->set_public_rw() exists."                );
     ok($package->can('_private_rw'),                   "$package->_private_rw() exists."                  );

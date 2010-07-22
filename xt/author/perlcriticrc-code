@@ -17,7 +17,11 @@ verbose = %f: %m at line %l, column %c.  %e.  (Severity: %s, %p)\n
 [-CodeLayout::RequireTidyCode]
 
 [Documentation::PodSpelling]
-stop_words = accessor accessors affordance Bool mutator perl Rolsky
+stop_words = accessor accessors affordance Bool mutator perl Rolsky rop rpw rpwp rw wo
+
+# I really don't want to deal with this right now.  Should probably use
+# Dist::Zilla.
+[-Documentation::RequirePodLinksIncludeText]
 
 [Documentation::RequirePodSections]
 lib_sections = NAME | VERSION | SYNOPSIS | DESCRIPTION | DIAGNOSTICS | CONFIGURATION AND ENVIRONMENT | DEPENDENCIES | AUTHOR | LICENSE AND COPYRIGHT | DISCLAIMER OF WARRANTY
