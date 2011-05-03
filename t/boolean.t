@@ -6,17 +6,16 @@ use 5.008004;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv('v1.3.0');
+use version; our $VERSION = qv('v1.4.0');
 
 
 use Test::More tests => 18;
 
 
-## no critic (Modules::ProhibitMultiplePackages)
 {
     package Regular;
 
-    use Moose;
+    use Moose 2.0;
     use MooseX::Accessors::ReadWritePrivate;
 
     has 'public_rw'                  => (is => 'rw',  isa => 'Bool');

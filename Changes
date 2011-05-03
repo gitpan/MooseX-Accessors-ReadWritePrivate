@@ -1,5 +1,10 @@
 Revision history for MooseX::Accessors::ReadWritePrivate.
 
+v1.4.0 2011/5/3
+
+    Awesome patch from Dave Rolsky to deal with Moose v2 changes.
+
+
 v1.3.0  2010/7/21
 
     Support non-public selectors.

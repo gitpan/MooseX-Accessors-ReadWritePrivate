@@ -43,11 +43,15 @@ my $builder = $class->new(
     create_packlist     => 1,
     sign                => 0,
 
+    configure_requires  => {
+        'Module::Build' => 0.38,
+    },
+
     requires            => {
-        'Moose'                     => 0.84,
-        'Moose::Exporter'           => 0,
-        'Moose::Role'               => 0,
-        'Moose::Util::MetaRole'     => 0,
+        'Moose'                     => 2.0,
+        'Moose::Exporter'           => 2.0,
+        'Moose::Role'               => 2.0,
+        'Moose::Util::MetaRole'     => 2.0,
         'strict'                    => 0,
         'utf8'                      => 0,
         'version'                   => 0,
@@ -80,9 +84,11 @@ my $builder = $class->new(
 
     add_to_cleanup      => [
         qw<
+            Debian_CPANTS.txt
             LICENSE
             MANIFEST
             MANIFEST.bak
+            META.json
             META.yml
             Makefile
             Makefile.old

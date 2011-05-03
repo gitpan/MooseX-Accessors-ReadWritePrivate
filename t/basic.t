@@ -6,7 +6,7 @@ use 5.008004;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv('v1.3.0');
+use version; our $VERSION = qv('v1.4.0');
 
 
 use Test::More tests => 168;
@@ -21,7 +21,7 @@ my $FALSE = 0;
     package Regular;
 
     # Make sure load order doesn't matter.
-    use Moose;
+    use Moose 2.0;
     use MooseX::Accessors::ReadWritePrivate;
 
     has 'public_rw'                   => (is => 'rw' );
@@ -60,7 +60,7 @@ my $FALSE = 0;
 {
     package Selector::Overrides;
 
-    use Moose;
+    use Moose 2.0;
     use MooseX::Accessors::ReadWritePrivate;
 
     has 'public_rw'                   => (is => 'rw',   reader => 'public_rw_override'                  );
@@ -95,7 +95,7 @@ my $FALSE = 0;
 {
     package Mutator::Overrides;
 
-    use Moose;
+    use Moose 2.0;
     use MooseX::Accessors::ReadWritePrivate;
 
     has 'public_rw'                   => (is => 'rw',   writer => 'public_rw_override'                  );

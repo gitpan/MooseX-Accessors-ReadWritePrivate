@@ -5,22 +5,29 @@ use utf8;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv('v1.3.0');
+use version; our $VERSION = qv('v1.4.0');
 
-use Moose 0.94 qw< >;
-use Moose::Exporter;
-use Moose::Util::MetaRole;
+use Moose 2.0 qw< >;
+use Moose::Exporter 2.0;
+use Moose::Util::MetaRole 2.0;
 
 use MooseX::Accessors::ReadWritePrivate::Role::Attribute;
 
 
-Moose::Exporter->setup_import_methods(
+my %metaroles = (
     class_metaroles => {
         attribute => [
             qw< MooseX::Accessors::ReadWritePrivate::Role::Attribute >
         ],
     },
+    role_metaroles => {
+        applied_attribute => [
+            qw< MooseX::Accessors::ReadWritePrivate::Role::Attribute >
+        ],
+    },
 );
+
+Moose::Exporter->setup_import_methods(%metaroles);
 
 
 1;
@@ -108,7 +115,7 @@ MooseX::Accessors::ReadWritePrivate - Name your accessors get_foo() and set_foo(
 
 =head1 VERSION
 
-This document describes MooseX::Accessors::ReadWritePrivate version 1.3.0.
+This document describes MooseX::Accessors::ReadWritePrivate version 1.4.0.
 
 
 =head1 DESCRIPTION
@@ -122,7 +129,7 @@ will be named the same as the attribute with "get_" prefixed, unless the
 attributes is a C<Bool> or a C<Maybe[Bool]>, in which case the selector will
 have the same name as the attribute.
 
-If there is no "ro", in the C<is> declaration, a mutator will be crated.
+If there is no "ro", in the C<is> declaration, a mutator will be created.
 Assuming that there is no "p" in the declaration, the mutator will be named
 the same as the attribute with "set_" prefixed, modulo leading underscores.
 
@@ -162,8 +169,8 @@ To be absolutely plain, here's the complete list of acceptable values for C<is>:
 =back
 
 
-Unlike other accessor naming schemes for L<Moose>, specifying a value for the
-"reader" only or the "writer" only does not disable the behavior of this
+Unlike many other accessor naming schemes for L<Moose>, specifying a value for
+the "reader" only or the "writer" only does not disable the behavior of this
 module for the other accessor.
 
 
@@ -181,7 +188,7 @@ None other than what you specify for your attributes.
 
 perl 5.8
 
-L<Moose> 0.56
+L<Moose> 0.94
 
 L<Moose::Exporter>
 

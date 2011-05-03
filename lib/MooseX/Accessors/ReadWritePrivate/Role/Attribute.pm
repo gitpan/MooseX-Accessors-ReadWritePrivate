@@ -7,10 +7,10 @@ use strict;
 use warnings;
 
 
-use version; our $VERSION = qv('v1.3.0');
+use version; our $VERSION = qv('v1.4.0');
 
 
-use Moose::Role;
+use Moose::Role 2.0;
 
 
 my $TRUE  = 1;
@@ -113,7 +113,7 @@ None.  This is part of the implementation of L<MooseX::Accessors::ReadWritePriva
 =head1 VERSION
 
 This document describes MooseX::Accessors::ReadWritePrivate::Role::Attribute
-version 1.3.0.
+version 1.4.0.
 
 
 =head1 DESCRIPTION
